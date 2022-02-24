@@ -1,5 +1,5 @@
 /**-----------------------------------------------------------------------------------------------------------------
- * @file	mime_message.hpp
+ * @file	body_shadow.hpp
  * @brief	Multi-purpose mail extensions	
  * @ref		IETF-rfc2045, rfc2046, rfc2047, rfc2048, rfc2049 
  *
@@ -8,18 +8,21 @@
 */
 
 
-#ifndef __LIBMIME_MIME_MESSAGE_HPP__
-#define __LIBMIME_MIME_MESSAGE_HPP__
+#ifndef __LIBMIME_MIME_BODY_SHADOW_HPP__
+#define __LIBMIME_MIME_BODY_SHADOW_HPP__
 
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE INCLUDES
+ *												MIME_BODY_SHADOW INCLUDES
  *
  *------------------------------------------------------------------------------------------------------------------
 */
 
-#include <libmime/mime_entity.hpp>
+#include <list>
+#include <libmime/body.hpp>
+#include <libmime/codec.hpp>
+
 
 namespace NS_LIBMIME{
 
@@ -28,7 +31,7 @@ using namespace std ;
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE SHORT ALIAS 
+ *												MIME_BODY_SHADOW SHORT ALIAS 
  *
  *------------------------------------------------------------------------------------------------------------------
 */
@@ -36,39 +39,36 @@ using namespace std ;
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE DATA BLOCK
+ *												MIME_BODY_SHADOW DATA BLOCK
  *
  *------------------------------------------------------------------------------------------------------------------
 */
 
+class mime_entity; /**< Forward declaration */
+
 /**
- *	@brief mime_message class and function set
+ *	@brief body_shadow class and function set
  *	@note 
- *		Inheritance graph : None 
+ *		Inheritance graph : body_shadow -> body(rfc822) 
  **/
-class mime_message : public mime_entity{
+class body_shadow : public body{
+	public: friend class mime_entity;
 	public:
-		mime_message(){}; /**< Empty structure */
-		mime_message(class mime_header &header):mime_entity(header){}	  ;
+		body_shadow() { this->clear(); }; /**< Empty structure   */
+		~body_shadow(){ delete bodys; bodys = NULL; }									;
+		body_shadow(const class body_shadow &sdbody){ *this = sdbody;}				    ;
+		body_shadow(const string &sdbody, string::size_type _size):body(sdbody, _size){};
+		body_shadow(const char *sdbody, string::size_type _size):body(sdbody, _size){}  ;
 
-		void set_preamble(const string &_preamble						 );
-		void set_preamble(const char *_preamble, string::size_type _size );
-
-		void set_epilogue(const string &_epilogue						 );
-		void set_epilogue(const char *_epilogue, string::size_type _size );
-
-		const string &get_preamble(void) const noexcept					  ;
-		const string &get_epilogue(void) const noexcept					  ;
-
-		const string make(void											 );
+		const class body_shadow &operator=(const class body_shadow &_body			   );
 
 	protected:
-		string preamble;	 string epilogue;
+		list<class mime_entity*> part_entity;
 };
 
 
 } /* namespace NS_LIBMIME */
 
 
-#endif /*__LIBMIME_MIME_MESSAGE_HPP__*/
+#endif /*__LIBMIME_MIME_BODY_SHADOW_HPP__*/
 

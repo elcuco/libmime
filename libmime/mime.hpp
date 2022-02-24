@@ -18,25 +18,25 @@
  *------------------------------------------------------------------------------------------------------------------
 */
 
-#include <libmime/util/util.hpp>
-#include <libmime/util/token.hpp>
-#include <libmime/codec/codec.hpp>
-#include <libmime/codec/Base64.hpp>
-#include <libmime/rfc822/body.hpp>
-#include <libmime/rfc822/header.hpp>
-#include <libmime/rfc822/field_name.hpp>
-#include <libmime/rfc822/field.hpp>
-#include <libmime/rfc822/field_body/string_body.hpp>
-#include <libmime/rfc822/field_body.hpp>
-#include <libmime/body/mime_entity.hpp>
-#include <libmime/body/entity/text_entity.hpp>
-#include <libmime/body/entity/mult_entity.hpp>
-#include <libmime/body/body_shadow.hpp>
-#include <libmime/header/param.hpp>
-#include <libmime/header/mime_header.hpp>
-#include <libmime/header/field_body/version_body.hpp>
-#include <libmime/header/field_body/contenttype_body.hpp>
-#include <libmime/header/field_body/contentid_body.hpp>
+#include <libmime//util.hpp>
+#include <libmime/token.hpp>
+#include <libmime/codec.hpp>
+#include <libmime/Base64.hpp>
+#include <libmime/body.hpp>
+#include <libmime/header.hpp>
+#include <libmime/field_name.hpp>
+#include <libmime/field.hpp>
+#include <libmime/string_body.hpp>
+#include <libmime/field_body.hpp>
+#include <libmime/mime_entity.hpp>
+#include <libmime/text_entity.hpp>
+#include <libmime/mult_entity.hpp>
+#include <libmime/body_shadow.hpp>
+#include <libmime/param.hpp>
+#include <libmime/mime_header.hpp>
+#include <libmime/version_body.hpp>
+#include <libmime/contenttype_body.hpp>
+#include <libmime/contentid_body.hpp>
 #include <libmime/mime_message.hpp>
 
 

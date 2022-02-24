@@ -1,25 +1,26 @@
 /**-----------------------------------------------------------------------------------------------------------------
- * @file	mime_message.hpp
- * @brief	Multi-purpose mail extensions	
- * @ref		IETF-rfc2045, rfc2046, rfc2047, rfc2048, rfc2049 
+ * @file	string_body.hpp
+ * @brief	Standrad for ARPA Ineternet text messages	
+ * @ref		IETF-rfc822
  *
  * Copyright (c) 2019-2019 Jim Zhang 303683086@qq.com
  *------------------------------------------------------------------------------------------------------------------
 */
 
 
-#ifndef __LIBMIME_MIME_MESSAGE_HPP__
-#define __LIBMIME_MIME_MESSAGE_HPP__
+#ifndef __LIBMIME_STRING_BODY_HPP__
+#define __LIBMIME_STRING_BODY_HPP__
 
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE INCLUDES
+ *												STRING_BODY INCLUDES
  *
  *------------------------------------------------------------------------------------------------------------------
 */
 
-#include <libmime/mime_entity.hpp>
+#include <libmime/field_body.hpp>
+
 
 namespace NS_LIBMIME{
 
@@ -28,7 +29,7 @@ using namespace std ;
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE SHORT ALIAS 
+ *												STRING_BODY SHORT ALIAS 
  *
  *------------------------------------------------------------------------------------------------------------------
 */
@@ -36,39 +37,42 @@ using namespace std ;
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE DATA BLOCK
+ *												STRING_BODY DATA BLOCK
  *
  *------------------------------------------------------------------------------------------------------------------
 */
 
 /**
- *	@brief mime_message class and function set
+ *	@brief string (unstructed) field body class and function set
  *	@note 
- *		Inheritance graph : None 
+ *		Inheritance graph : string_body->field_body 
  **/
-class mime_message : public mime_entity{
+class string_body : public field_body{
 	public:
-		mime_message(){}; /**< Empty structure */
-		mime_message(class mime_header &header):mime_entity(header){}	  ;
+		static const string lable												   ;
 
-		void set_preamble(const string &_preamble						 );
-		void set_preamble(const char *_preamble, string::size_type _size );
+	public:
+		string_body(){}; /**< Empty structure */
+		string_body(const string &body											  );
+		string_body(const char *body, string::size_type _size					  );
 
-		void set_epilogue(const string &_epilogue						 );
-		void set_epilogue(const char *_epilogue, string::size_type _size );
+		void set(const string &body												  );
+		void set(const char *body, string::size_type _size						  );
 
-		const string &get_preamble(void) const noexcept					  ;
-		const string &get_epilogue(void) const noexcept					  ;
+		const string &get_lable(void) const noexcept { return string_body::lable; };
 
-		const string make(void											 );
+		const string get(void) const noexcept { return this->body; }               ;
 
 	protected:
-		string preamble;	 string epilogue;
+		field_body *clone(void) const											   ; 
+
+	private:
+		string body;
 };
 
 
 } /* namespace NS_LIBMIME */
 
 
-#endif /*__LIBMIME_MIME_MESSAGE_HPP__*/
+#endif /*__LIBMIME_STRING_BODY_HPP__*/
 

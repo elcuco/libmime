@@ -1,5 +1,5 @@
 /**-----------------------------------------------------------------------------------------------------------------
- * @file	mime_message.hpp
+ * @file	version_body.hpp
  * @brief	Multi-purpose mail extensions	
  * @ref		IETF-rfc2045, rfc2046, rfc2047, rfc2048, rfc2049 
  *
@@ -8,18 +8,19 @@
 */
 
 
-#ifndef __LIBMIME_MIME_MESSAGE_HPP__
-#define __LIBMIME_MIME_MESSAGE_HPP__
+#ifndef __LIBMIME_VERSION_BODY_HPP__
+#define __LIBMIME_VERSION_BODY_HPP__
 
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE INCLUDES
+ *												VERSION_BODY INCLUDES
  *
  *------------------------------------------------------------------------------------------------------------------
 */
 
-#include <libmime/mime_entity.hpp>
+#include <libmime/field_body.hpp>
+
 
 namespace NS_LIBMIME{
 
@@ -28,7 +29,7 @@ using namespace std ;
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE SHORT ALIAS 
+ *												VERSION_BODY SHORT ALIAS 
  *
  *------------------------------------------------------------------------------------------------------------------
 */
@@ -36,39 +37,44 @@ using namespace std ;
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE DATA BLOCK
+ *												VERSION_BODY DATA BLOCK
  *
  *------------------------------------------------------------------------------------------------------------------
 */
 
 /**
- *	@brief mime_message class and function set
+ *	@brief string (structed) field body class and function set
  *	@note 
- *		Inheritance graph : None 
+ *		Inheritance graph : version_body->field_body (rfc822)
  **/
-class mime_message : public mime_entity{
+class version_body : public field_body{
 	public:
-		mime_message(){}; /**< Empty structure */
-		mime_message(class mime_header &header):mime_entity(header){}	  ;
+		static const string lable								                    ;
 
-		void set_preamble(const string &_preamble						 );
-		void set_preamble(const char *_preamble, string::size_type _size );
+	public:
+		version_body(){}; /**< Empty structure */
+		version_body(const string &version						                   );
+		version_body(const char *version, string::size_type _size                  );
+		version_body(int v_major, int v_minor					                   );
 
-		void set_epilogue(const string &_epilogue						 );
-		void set_epilogue(const char *_epilogue, string::size_type _size );
+		void set(const string &version							                   );
+		void set(const char *version, string::size_type _size	                   );
+		void set(int v_major, int v_minor						                   );
 
-		const string &get_preamble(void) const noexcept					  ;
-		const string &get_epilogue(void) const noexcept					  ;
+		const string &get_lable(void) const noexcept { return version_body::lable; };
 
-		const string make(void											 );
+		const string get(void) const noexcept { return this->body; }				;
 
 	protected:
-		string preamble;	 string epilogue;
+		class field_body *clone(void) const											;
+
+	private:
+		string body;
 };
 
 
 } /* namespace NS_LIBMIME */
 
 
-#endif /*__LIBMIME_MIME_MESSAGE_HPP__*/
+#endif /*__LIBMIME_VERSION_BODY_HPP__*/
 

@@ -1,5 +1,5 @@
 /**-----------------------------------------------------------------------------------------------------------------
- * @file	mime_message.hpp
+ * @file	text_entity.hpp
  * @brief	Multi-purpose mail extensions	
  * @ref		IETF-rfc2045, rfc2046, rfc2047, rfc2048, rfc2049 
  *
@@ -8,13 +8,13 @@
 */
 
 
-#ifndef __LIBMIME_MIME_MESSAGE_HPP__
-#define __LIBMIME_MIME_MESSAGE_HPP__
+#ifndef __LIBMIME_TEXT_ENTITY_HPP__
+#define __LIBMIME_TEXT_ENTITY_HPP__
 
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE INCLUDES
+ *												TEXT_ENTITY INCLUDES
  *
  *------------------------------------------------------------------------------------------------------------------
 */
@@ -28,7 +28,7 @@ using namespace std ;
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE SHORT ALIAS 
+ *												TEXT_ENTITY SHORT ALIAS 
  *
  *------------------------------------------------------------------------------------------------------------------
 */
@@ -36,39 +36,26 @@ using namespace std ;
 
 /*------------------------------------------------------------------------------------------------------------------
  *
- *												MIME_MESSAGE DATA BLOCK
+ *												TEXT_ENTITY DATA BLOCK
  *
  *------------------------------------------------------------------------------------------------------------------
 */
 
 /**
- *	@brief mime_message class and function set
+ *	@brief text_entity class and function set
  *	@note 
- *		Inheritance graph : None 
+ *		Inheritance graph : text_entity->mime_entity 
  **/
-class mime_message : public mime_entity{
+class text_entity : public mime_entity{
 	public:
-		mime_message(){}; /**< Empty structure */
-		mime_message(class mime_header &header):mime_entity(header){}	  ;
-
-		void set_preamble(const string &_preamble						 );
-		void set_preamble(const char *_preamble, string::size_type _size );
-
-		void set_epilogue(const string &_epilogue						 );
-		void set_epilogue(const char *_epilogue, string::size_type _size );
-
-		const string &get_preamble(void) const noexcept					  ;
-		const string &get_epilogue(void) const noexcept					  ;
-
-		const string make(void											 );
+		text_entity(){}; /**< Empty structure */
 
 	protected:
-		string preamble;	 string epilogue;
 };
 
 
 } /* namespace NS_LIBMIME */
 
 
-#endif /*__LIBMIME_MIME_MESSAGE_HPP__*/
+#endif /*__LIBMIME_TEXT_ENTITY_HPP__*/
 
